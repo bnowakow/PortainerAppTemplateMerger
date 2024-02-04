@@ -22,15 +22,20 @@ fun startUpdating(interval: Duration) {
         val client = HttpClient(CIO)
 
         val urls = listOf(
-            "https://raw.githubusercontent.com/xneo1/portainer_templates/master/Template/template.json",
-            "https://raw.githubusercontent.com/portainer/templates/master/templates-2.0.json",
-            "https://raw.githubusercontent.com/dnburgess/self-hosted-template/master/template.json",
-            "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Template/template.json",
-            "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/portainer-2.0/Template/template.json",
+            "https://templates-portainer.ibaraki.app",
+            "https://raw.githubusercontent.com/Lissy93/portainer-templates/main/templates.json",
+            "https://raw.githubusercontent.com/ntv-one/portainer/main/template.json",
             "https://raw.githubusercontent.com/technorabilia/portainer-templates/main/lsio/templates/templates-2.0.json",
             "https://raw.githubusercontent.com/mikestraney/portainer-templates/master/templates.json",
+            "https://raw.githubusercontent.com/TheLustriVA/portainer-templates-Nov-2022-collection/main/templates_2_2_rc_2_2.json",
             "https://raw.githubusercontent.com/mycroftwilde/portainer_templates/master/Template/template.json",
-            "https://raw.githubusercontent.com/ntv-one/portainer/main/template.json"
+            "https://raw.githubusercontent.com/OliverCullimore/portainer-templates/master/templates.json",
+            "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Template/template.json",
+            "https://raw.githubusercontent.com/xneo1/portainer_templates/master/Template/template.json",
+            "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/portainer-2.0/Template/template.json",
+            "https://raw.githubusercontent.com/dnburgess/self-hosted-template/master/template.json",
+            "https://raw.githubusercontent.com/portainer/templates/master/templates-2.0.json",
+            "https://raw.githubusercontent.com/mediadepot/templates/master/portainer.json",
         )
 
         // map the urls to a list of template json objects
@@ -51,8 +56,9 @@ fun startUpdating(interval: Duration) {
         }.distinctBy {
             // combine the title and name fields to get a unique identifier
             it.jsonObject.run {
-                get("title")?.jsonPrimitive?.content ?: ""
-                    .plus(get("name")?.jsonPrimitive?.content ?: "")
+                get("name")?.jsonPrimitive?.content ?: ""
+                    .plus(get("title")?.jsonPrimitive?.content ?: "")
+                    .plus(get("image")?.jsonPrimitive?.content ?: "")
             }
         }.run {
             // this is the combined list of templates
